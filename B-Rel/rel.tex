@@ -1,313 +1,538 @@
-\documentclass[aps,prd,10pt,twocolumn,superscriptaddress,floatfix,nofootinbib,amsmath,amssymb,altaffilletter,preprintnumbers]{revtex4-1}
-\usepackage[colorlinks=true,pdfstartview=FitV,breaklinks=true]{hyperref}
+\documentclass[aps,prd,10pt,onecolumn,nofootinbib,amsmath,amssymb]{revtex4-1}
 
-
+\usepackage[colorlinks=true,breaklinks=true]{hyperref}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{textcomp}
-\usepackage{xspace}
-\usepackage{slashed}
 \usepackage{amsmath}
-\usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{upgreek}
-\usepackage{comment}
-\usepackage[dvipsnames,table]{xcolor}
-\usepackage[normalem]{ulem}
-\usepackage{csquotes}
-\usepackage{bbold}
-%\usepackage[compat=1.1.0]{tikz-feynman}
-%\usepackage{tikz}
-\hypersetup{urlcolor=BlueViolet,
-	    citecolor=Plum,
-	    linkcolor=PineGreen}
-\usepackage[official]{eurosym}
-\definecolor{lightgray}{rgb}{0.9,0.9,0.9}	    
-\definecolor{green}{rgb}{0,0.5,0}
-\definecolor{red}{rgb}{1,0,0}
-\definecolor{blue}{rgb}{0,0,0.5}
+\usepackage{slashed}
+\usepackage{xcolor}
 
-%\usepackage[right=2.5cm,left=2.5cm]{geometry}
+\hypersetup{
+  urlcolor=blue,
+  citecolor=blue,
+  linkcolor=blue
+}
 
-\newcommand\codo[1]{{\tt #1}}
-\newcommand{\n}{{\ensuremath{\mathfrak{n}}}\xspace} 
-\newcommand{\comm}[1]{{\color{red} #1}}
-\newcommand{\de}[1]{\partial #1}
-\newcommand{\dt}[1]{\rm d #1}
-
-\renewcommand{\arraystretch}{1.5}
-
-\newcommand{\G}[1]{\textcolor{orange}{\textbf{GP:} #1}}
-\newcommand{\Yeray}[1]{\textcolor{green}{\textbf{YG:} #1}}
-\newcommand{\Yerayc}[1]{\textcolor{green}{#1}}
-
-\DeclareMathOperator*{\sotimes}{\text{\raisebox{0.25ex}{\scalebox{0.6}{$\bigotimes$}}}}
-
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\vev}[1]{\left\langle #1\right\rangle}
 
 \begin{document}
 
-\title{Prospects for relic neutrino detection using nuclear spin experiments}
+\title{Excitation and de-excitation rates from a relativistic reactor
+antineutrino source}
+\author{Working derivation based on Appendix B of \texttt{main\_v4.tex}}
+\noaffiliation
+\date{\today}
+\maketitle
 
-\author{Yeray Garcia del Castillo}\email{y.garcia\textunderscore del\textunderscore castillo@unsw.edu.au}
-\author{Giovanni Pierobon}\email{g.pierobon@unsw.edu.au}
-\author{Dipan Sengupta}\email{dipan.sengupta@unsw.edu.au}
-\author{Yvonne Y. Y. Wong}\email{yvonne.y.wong@unsw.edu.au}
-\affiliation{Sydney Consortium for Particle Physics and Cosmology\\
-School of Physics, The University of New South Wales, Sydney NSW 2052,  Australia}
+\section{Scope and assumptions}
+\label{sec:scope}
 
-\preprint{CPPC-2025-06}
+This note repeats the excitation and de-excitation calculation of
+Appendix~B for a reactor source.  We make the following assumptions.
+\begin{enumerate}
+  \item The source contains electron antineutrinos with
+  \(E\sim\mathrm{MeV}\gg m_i\), so all neutrino masses are neglected in
+  external-state kinematics and spinor traces.
+  \item The produced antineutrinos have the active, positive-helicity state.
+  Contributions from the wrong helicity are of relative order
+  \(m_i^2/E^2\).
+  \item Only neutral-current scattering from a nuclear spin is included.
+  The neutral-current axial coupling \(g_A\) is flavour universal, diagonal
+  in the neutrino mass basis, and the nucleus is treated as pointlike on the
+  scale of the momentum transfer relevant here.
+  \item The nuclear spin is fixed in the sample.  Target recoil and energy
+  transfer to phonons are neglected, as requested.  Consequently the
+  nuclear spin can absorb momentum without a recoil-energy term in the
+  energy-conservation delta function.
+  \item The reactor occupation is extremely dilute, so final-state Pauli
+  blocking is set to one.
+  \item The incident field is first treated locally as a beam of plane
+  waves.  A finite core is included by integrating the result over its
+  angular flux distribution.  The additional spatial-coherence assumptions
+  needed to apply a plane-wave \(N^2\) form factor to a macroscopic sample
+  are stated explicitly in Sec.~\ref{sec:coherence}.
+\end{enumerate}
 
-
-\onecolumngrid
-\appendix
-
-
-\section{Excitation and de-excitation rates}\label{app:rates}
-
-\subsection{Single spin}
-
-Consider first a single spin immersed in the cosmic neutrino bath.  Following Fermi's golden rule the excitation and de-excitation rates are given by 
+The external magnetic field defines the spin quantisation axis
+\(\hat z\).  As in the main text, the spin-dependent interaction is
 \begin{equation}
-\gamma_{\pm}=   |T^{\pm}_{\rm fi}|^2 
-  2\pi\delta^{(1)}(E_{\rm f}-E_{\rm i}) \, \rho_\pm(E_{\rm f})\, ,
-\label{eq:golden}
+ H_{\rm int}
+ =\Sigma_z J_z+\Sigma_-J_-+\Sigma_+J_+ ,
 \end{equation}
-where the superscripts ``$+$'' and ``$-$'' refer respectively to excitation and de-excitation, $|T^+_{\rm fi}|^2$ is the transition probability from the initial state $|{\rm i}\rangle = |\downarrow \rangle \otimes |{\rm i}_{\nu}\rangle$ to the final state $|{\rm f}\rangle= |\uparrow \rangle \otimes |{\rm f}_{\nu}\rangle$, while $|T^-_{\rm fi}|^2$ is its counterpart for the transition $|{\rm i}\rangle = |\uparrow \rangle \otimes |{\rm i}_{\nu}\rangle$ to $|{\rm f}\rangle= |\downarrow \rangle \otimes |{\rm f}_{\nu}\rangle$.  The quantity $\rho(E_{\rm f})$ is the density of states at the final energy $E_{\rm f}$, which in our case can be written as, 
-\begin{equation}
-\rho_\pm(E_{\rm f}) =  \sum_{jk} \sum_{a,c} \int \frac{{\rm d}^3\vec{p}}{(2 \pi)^3 }  \frac{{\rm d}^3 \vec{p}\,'}{(2 \pi)^3 } \frac{{\rm d}^3\vec{n}}{(2 \pi)^3 }   \, (2 \pi)^3 \delta^{(3)} ( \vec{p}-\vec{p}\,'\mp \vec{n})\, P_{{\rm i}_\nu} \, P_{{\rm f}_\nu}\,,
-\label{eq:densityofstates}
-\end{equation}
-where $\vec{p}$ and $\vec{p}\,'$ are the 3-momenta of the incoming and outgoing neutrinos respectively, $\vec{n}$ is the momentum of the final-state fermion (assuming it is initially stationary),  $P_{{\rm i}_\nu}$ and $P_{{\rm f}_\nu}$ represent respectively the thermal weight of the initial-state neutrino and any Pauli blocking factor associated with the final state, $j$ and $k$ are mass indices of the initial- and final-state neutrinos, while $a$ and $c$ index their helicities.  
-Since the recoil of the fermion is expected to be tiny, the angle of the outgoing neutrino is essentially unrestricted.  We therefore proceed to use the Dirac delta in Eq.~\eqref{eq:densityofstates} to eliminate the integral over the nuclear momentum, to arrive at
-\begin{equation}
-\rho_\pm(E_{\rm f}) =  \sum_{jk} \sum_{a,c} \int \frac{{\rm d}^3\vec{p}}{(2 \pi)^3 }  \frac{{\rm d}^3\vec{p}\,'}{(2 \pi)^3 }   P_{{\rm i}_\nu} \, P_{{\rm f}_\nu}\, ,
-\label{eq:densityofstates2}
-\end{equation}
-where it is now understood that the relation between $|\vec{p}|$ and $|\vec{p}\,'|$ is determined by energy conservation alone.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\linewidth]{../plots/diagram.pdf}
-    \caption{Feynman diagrams of the processes that contribute to the excitation of a spin in a 4-fermi effective interaction.}
-    \label{fig:feynman}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-At first order in perturbation theory (i.e., the Born approximation), the transition amplitude is given by 
-\begin{equation}
-    T^{\pm}_{\rm fi}=\langle {\rm f}|\Sigma_{\pm}J_{\pm}|{\rm i}\rangle \, .
-\end{equation}
-Focussing on excitation, consider an initial-state neutrino specified by a wavefunction 
-\begin{equation}
-\nu_j(t,\vec{x}) = u_{j,a}(\vec{p})  e^{-{\rm i} (p^0t-\vec{p}\cdot\vec{x})}\, ,
-\end{equation}
-where $a$ is a helicity index.  Suppose it scatters off a spin inelastically, thereby transferring energy $\omega_0$ to it, and then exits the interaction in a final-state plane wave given by $\nu_k(t,\vec{x}) = u_{k,c}(\vec{p}\,')  e^{-{\rm i}(p'^0t- \vec{p}' \cdot\vec{x})}$.  This process is represented by the leftmost diagram in Fig.~\ref{fig:feynman}, and its transition probability can be written as 
+where
 \begin{equation}
 \begin{aligned}
-    |T^{+}_{\rm fi}|^2= &\; |\langle \uparrow |J_{+}|\downarrow \rangle|^2\, |\langle {\rm f}_\nu | \Sigma_+ | {\rm i}_\nu \rangle|^2 \\
-    =& \;   \, \frac{G_F^2}{2} g_A^{j,k} g_A^{k,j} \frac{1}{2p^{0}2p'^{0}}   \left| \bar{u}_{k,c}(\vec{p}\,') (\gamma^1 - {\rm i} \gamma^2)(1- \gamma^5) u_{j,a}(\vec{p})\right|^2\, ,
+ \Sigma_z
+ &=\sqrt{2}G_F g_A\sum_i
+   \bar\nu_i\gamma^3(1-\gamma^5)\nu_i,\\
+ \Sigma_\pm
+ &=\frac{G_Fg_A}{\sqrt{2}}\sum_i
+   \bar\nu_i(\gamma^1\mp{\rm i}\gamma^2)
+   (1-\gamma^5)\nu_i .
+\end{aligned}
+\label{eq:Sigma}
+\end{equation}
+The upper sign denotes spin excitation and the lower sign spin
+de-excitation.  The spin splitting is \(\omega_0>0\).
+
+\section{Reactor flux}
+\label{sec:flux}
+
+Let
+\begin{equation}
+ \phi(E,\hat p)
+ \equiv\frac{\dd^3\Phi_{\bar\nu_e}}
+ {\dd E\,\dd\Omega_{\hat p}}
+\label{eq:angularflux}
+\end{equation}
+be the differential antineutrino flux at the sample.  It is a physical
+one-helicity flux; there is no average over two initial helicities.  For a
+pointlike, isotropic \(^{235}{\rm U}\) source at distance \(L\),
+\begin{equation}
+ \phi(E,\hat p)
+ =\frac{\dot N_f}{4\pi L^2}S_{235}(E)
+   \delta^{(2)}(\hat p-\hat n_R),
+\qquad
+ \dot N_f=\frac{P_{\rm th}}{Q_f},
+\label{eq:pointflux}
+\end{equation}
+where \(S_{235}(E)\) is the yield per unit energy per fission, \(P_{\rm th}\)
+is the thermal power, and \(Q_f\) is the energy released per fission.  For
+an extended core, Eq.~\eqref{eq:pointflux} is replaced by the sum or volume
+integral of the contributions from each core element.  All subsequent
+formulae remain valid with the general angular flux
+Eq.~\eqref{eq:angularflux}.
+
+A produced electron antineutrino is a superposition of mass eigenstates.
+The neutral-current interaction preserves the mass index.  After summing
+over the unobserved final mass eigenstate, the leading rate is proportional
+to
+\(\sum_i|U_{ei}|^2=1\).  Reactor oscillations therefore do not alter the
+neutral-current rate in the limit \(m_i^2/E^2\to0\).  This statement would
+not apply to flavour-dependent or charged-current couplings.
+
+\section{Single-spin rate}
+\label{sec:single}
+
+\subsection{Kinematics}
+
+Write the incoming and outgoing massless four-momenta as
+\begin{equation}
+ p^\mu=E(1,\hat p),
+\qquad
+ p'^\mu=E'(1,\hat p').
+\end{equation}
+With recoil neglected, energy conservation gives
+\begin{equation}
+\begin{aligned}
+ E'_+&=E-\omega_0,
+ & E&\geq\omega_0
+ &&\text{(excitation)},\\
+ E'_-&=E+\omega_0,
+ & E&\geq0
+ &&\text{(de-excitation)}.
+\end{aligned}
+\label{eq:Epm}
+\end{equation}
+The momentum transferred to the fixed target is
+\(\vec q_\pm=\vec p-\vec p\,'_\pm\).
+
+\subsection{Definite-helicity spinor traces}
+
+For an incoming active reactor antineutrino, summing over the allowed
+outgoing antineutrino state gives
+\begin{equation}
+\begin{aligned}
+ {\cal S}_+
+ &\equiv
+ \sum_c
+ \left|
+ \bar v_+(\vec p)
+ (\gamma^1-{\rm i}\gamma^2)(1-\gamma^5)
+ v_c(\vec p\,')
+ \right|^2,\\
+ {\cal S}_-
+ &\equiv
+ \sum_c
+ \left|
+ \bar v_+(\vec p)
+ (\gamma^1+{\rm i}\gamma^2)(1-\gamma^5)
+ v_c(\vec p\,')
+ \right|^2 .
+\end{aligned}
+\label{eq:tracedef}
+\end{equation}
+The subscript on \(v_+\) denotes the positive-helicity antineutrino, not a
+spin excitation.  Using
+\(\sum_c v_c(p')\bar v_c(p')=\slashed p'\) in the massless limit, the two
+traces evaluate to
+\begin{equation}
+\boxed{
+\begin{aligned}
+ {\cal S}_+
+ &=16EE'(1+\hat p\cdot\hat z)
+          (1-\hat p'\cdot\hat z),\\
+ {\cal S}_-
+ &=16EE'(1-\hat p\cdot\hat z)
+          (1+\hat p'\cdot\hat z).
+\end{aligned}}
+\label{eq:spinortraces}
+\end{equation}
+Equation~\eqref{eq:spinortraces} is the main difference from an isotropic,
+helicity-independent bath.  The parity-violating weak interaction retains
+the direction of the reactor beam relative to the quantisation axis.
+
+\subsection{Golden-rule result}
+
+Starting with the invariant phase-space measure
+\(\dd\widetilde p=\dd^3p/[(2\pi)^3 2E]\), the antineutrino contribution is
+\begin{equation}
+\begin{aligned}
+ \gamma_\pm={}&
+ \pi G_F^2g_A^2
+ \int\dd\widetilde p\,\dd\widetilde p'\,
+ (2\pi)^3\frac{\dd^3n_{\bar\nu}}{\dd^3p}\,
+ \delta(E'_\pm-E')\,{\cal S}_\pm .
+\end{aligned}
+\label{eq:fgrphase}
+\end{equation}
+For a relativistic beam,
+\(\dd^3n_{\bar\nu}/(\dd E\,\dd\Omega)=\phi(E,\hat p)\).
+Substitution of Eq.~\eqref{eq:spinortraces} then yields
+\begin{equation}
+\boxed{
+\begin{aligned}
+ \gamma_+
+ &=\frac{G_F^2g_A^2}{2\pi^2}
+   \int_{\omega_0}^{\infty}\dd E\int\dd\Omega_{\hat p}\,
+   \phi(E,\hat p)(E-\omega_0)^2\\
+ &\hspace{18mm}\times
+   \int\dd\Omega_{\hat p'}
+   (1+\hat p\cdot\hat z)(1-\hat p'\cdot\hat z),\\
+ \gamma_-
+ &=\frac{G_F^2g_A^2}{2\pi^2}
+   \int_0^{\infty}\dd E\int\dd\Omega_{\hat p}\,
+   \phi(E,\hat p)(E+\omega_0)^2\\
+ &\hspace{18mm}\times
+   \int\dd\Omega_{\hat p'}
+   (1-\hat p\cdot\hat z)(1+\hat p'\cdot\hat z).
+\end{aligned}}
+\label{eq:singlegeneral}
+\end{equation}
+The normalisation in Eq.~\eqref{eq:singlegeneral} is for the physical
+active-helicity flux.  In particular, it contains no factor \(1/2\) from
+averaging over an unoccupied initial helicity.
+
+For a pencil beam along \(\hat n_R\), define
+\begin{equation}
+ c\equiv\cos\alpha=\hat n_R\cdot\hat z,
+\qquad
+ \phi_R(E)\equiv\int\dd\Omega_{\hat p}\,\phi(E,\hat p).
+\end{equation}
+The unrestricted outgoing angular integral gives the compact result
+\begin{equation}
+\boxed{
+\begin{aligned}
+ \gamma_+
+ &=\frac{2G_F^2g_A^2}{\pi}(1+c)
+   \int_{\omega_0}^{\infty}\dd E\,
+   \phi_R(E)(E-\omega_0)^2,\\
+ \gamma_-
+ &=\frac{2G_F^2g_A^2}{\pi}(1-c)
+   \int_0^{\infty}\dd E\,
+   \phi_R(E)(E+\omega_0)^2.
+\end{aligned}}
+\label{eq:singlepencil}
+\end{equation}
+Thus \(\gamma_+=0\) for a beam antiparallel to \(+\hat z\), while
+\(\gamma_-=0\) for a beam parallel to \(+\hat z\), within the massless and
+recoil-free approximations.  Reversing either the beam or magnetic-field
+direction interchanges the two rates.
+
+\subsection{\texorpdfstring{Small-\(\omega_0/E\) expansion}
+{Small-omega0/E expansion}}
+
+For a transverse beam, \(c=0\), define the flux moments
+\begin{equation}
+ I_n\equiv\int_0^\infty\dd E\,E^n\phi_R(E).
+\end{equation}
+The negligible interval \(0<E<\omega_0\) aside,
+Eq.~\eqref{eq:singlepencil} becomes
+\begin{equation}
+\begin{aligned}
+ \gamma_+&={\cal C}
+ (I_2-2\omega_0 I_1+\omega_0^2I_0),\\
+ \gamma_-&={\cal C}
+ (I_2+2\omega_0 I_1+\omega_0^2I_0),
+ \qquad
+ {\cal C}\equiv\frac{2G_F^2g_A^2}{\pi}.
+\end{aligned}
+\label{eq:momentexpansion}
+\end{equation}
+If \(\gamma_0\equiv{\cal C}I_2\), the leading kinematic imbalance is
+\begin{equation}
+ \boxed{
+ \frac{\gamma_--\gamma_+}{\gamma_0}
+ =4\omega_0\frac{I_1}{I_2}
+ +{\cal O}\left(\frac{\omega_0^2}{E^2}\right).}
+\label{eq:imbalance}
+\end{equation}
+This replaces the nonrelativistic suppression
+\(\sim2m_\nu\omega_0/p_\nu^2\).  For a non-transverse beam, the
+\({\cal O}(1)\) factors \(1\pm c\) dominate over the minute kinematic
+effect in Eq.~\eqref{eq:imbalance}.
+
+\section{\texorpdfstring{\(^{235}\mathrm{U}\)}{235U} spectrum benchmark}
+\label{sec:numeric}
+
+The file \texttt{../235U\_nspec.csv} contains a piecewise-constant spectrum
+\(S_{235}(E)=\dd N_{\bar\nu}/(\dd E\,\dd{\rm fission})\).  Defining
+\begin{equation}
+ M_n=\int\dd E\,E^nS_{235}(E),
+\end{equation}
+direct integration gives
+\begin{equation}
+\begin{aligned}
+ M_0&=6.077743311~{\rm fission}^{-1},\\
+ M_1&=8.815892881~{\rm MeV\,fission}^{-1},\\
+ M_2&=21.54413023~{\rm MeV^2\,fission}^{-1}.
+\end{aligned}
+\label{eq:spectrummoments}
+\end{equation}
+The mean and root-mean-square energies are \(1.45052\) MeV and
+\(1.88275\) MeV, respectively, while the energy controlling
+Eq.~\eqref{eq:imbalance} is
+\begin{equation}
+ E_{\rm eff}\equiv\frac{M_2}{M_1}=2.44378~{\rm MeV}.
+\end{equation}
+For \(\omega_0=10^{-8}\) eV,
+\begin{equation}
+ 4\omega_0\frac{M_1}{M_2}=1.6368\times10^{-14}.
+\end{equation}
+
+As an illustrative normalisation, take \(g_A=1/2\),
+\(P_{\rm th}=1\) GW, \(L=10\) m, and \(Q_f=202.36\) MeV.  The point-source
+flux and the spectrum-averaged transverse single-spin cross section are
+\begin{equation}
+\begin{aligned}
+ \Phi_R&=1.49175\times10^{13}~{\rm cm}^{-2}{\rm s}^{-1},\\
+ \vev{\sigma_\pm}
+ &=2.98854\times10^{-44}~{\rm cm}^2 ,
 \end{aligned}
 \end{equation}
-where we have used $|\langle\uparrow|J_+|\downarrow \rangle|^2=1$ at the second equality, and the factors of $1/2 p^{0}$ originates from the normalisation of the $u$-spinors to $2p^0$.
-The thermal weight factors in Eq.~\eqref{eq:densityofstates} are then $P_{{\rm i}_\nu} = N_{j,a}(p^0)$ and  $P_{{\rm f}_\nu} =1 -N_{k,a}(p'^0)$, where $N_{i,a}(p^0)$ is the neutrino occupation number, while the Dirac delta $\delta^{(1)}(E_{\rm f}-E_{\rm i})$ becomes $\delta^{(1)}(\omega_0+p'^0-p^0)$, 
-enforcing the change in energy between the initial- and final-state neutrinos to be equal to $\omega_{0}$, the energy splitting due to the external magnetic field.   A similar calculation can also be performed in the case of an antineutrino exciting a spin, as represented by the middle diagram in Fig.~\ref{fig:feynman}.  
+which give
+\begin{equation}
+ \gamma_+\simeq\gamma_-
+ =4.45817\times10^{-31}~{\rm s}^{-1}
+\label{eq:numericgamma}
+\end{equation}
+at the displayed precision.  These numbers scale as
+\(g_A^2P_{\rm th}/L^2\).  They are not a claim about a particular reactor;
+the power, distance, fission energy, coupling, and angle are exposed as
+inputs in \texttt{reactor\_rates.py}.
 
+\section{\texorpdfstring{\(N\)}{N}-spin ensemble}
+\label{sec:ensemble}
 
+For spins at positions \(\vec x_\alpha\), define
+\begin{equation}
+ F_\pm(\vec q)
+ =\sum_{{\rm f}_{\rm spin}}
+ \left|
+ \left\langle{\rm f}_{\rm spin}\right|
+ \sum_\alpha J_\pm^\alpha e^{-{\rm i}\vec q\cdot\vec x_\alpha}
+ \left|{\rm i}_{\rm spin}\right\rangle
+ \right|^2.
+\label{eq:Fgeneral}
+\end{equation}
+Repeating the single-spin calculation without performing the outgoing
+angular integral gives
+\begin{equation}
+\boxed{
+\begin{aligned}
+ \Gamma_+
+ &=\frac{G_F^2g_A^2}{2\pi^2}
+ \int_{\omega_0}^\infty\dd E\int\dd\Omega_{\hat p}\,
+ \phi(E,\hat p)(E-\omega_0)^2\\
+ &\quad\times\int\dd\Omega_{\hat p'}
+ (1+\hat p\cdot\hat z)(1-\hat p'\cdot\hat z)
+ F_+(\vec q_+),\\
+ \Gamma_-
+ &=\frac{G_F^2g_A^2}{2\pi^2}
+ \int_0^\infty\dd E\int\dd\Omega_{\hat p}\,
+ \phi(E,\hat p)(E+\omega_0)^2\\
+ &\quad\times\int\dd\Omega_{\hat p'}
+ (1-\hat p\cdot\hat z)(1+\hat p'\cdot\hat z)
+ F_-(\vec q_-).
+\end{aligned}}
+\label{eq:ensemblegeneral}
+\end{equation}
+This is the reactor-source replacement for Eq.~(B.18) of the main
+manuscript.  Unlike the isotropic expression, the weak angular kernel
+cannot generally be pulled outside the form-factor integral.
 
-Putting it altogether, we then find the excitation rate of one spin to be
+For the initial transverse product state
+\(\left|\rightarrow\right\rangle^{\otimes N}\), the continuum form factor
+of a uniform sphere of radius \(R\) is
+\begin{equation}
+ F_\pm^P(q)
+ =\frac{N}{2}
+ +\frac{N^2}{4}
+ \left[\frac{3j_1(qR)}{qR}\right]^2 .
+\label{eq:sphereF}
+\end{equation}
+The \(N/2\) term is the incoherent contribution; the \(N^2\) term contains
+the collective contribution.  For a pencil beam, let
+\(\mu=\hat p\cdot\hat p'\).  Averaging over the outgoing azimuth about
+\(\hat p\) gives
+\(\vev{\hat p'\cdot\hat z}_{\rm az}=c\mu\), and hence
+\begin{equation}
+\boxed{
+\begin{aligned}
+ \Gamma_\pm
+ =\frac{G_F^2g_A^2}{\pi}
+ \int\dd E\,\phi_R(E)E_\pm'^2(1\pm c)
+ \int_{-1}^{1}\dd\mu\,(1\mp c\mu)F_\pm(q_\pm),
+\end{aligned}}
+\label{eq:ensemblepencil}
+\end{equation}
+with the excitation threshold understood and
 \begin{equation}
 \begin{aligned}
-\gamma_{+}= & \; G_F^2\pi \sum_{jk} g_A^{j,k} g_A^{k,j} \sum_{ac}  
-    \int {\rm d} \tilde{p} \int {\rm d} \tilde{p}' \; \delta^{(1)}(\omega_0+p'^0-p^0) \\
-  &\; \times \Bigg[(1-N_{k,c}(p'^0)) \, N_{j,a}(p^0)\, \bar{u}_{k,c}(\vec{p}\,') (\gamma^1- {\rm i} \gamma^2)(1-\gamma^5) u_{j,a}(\vec{p}) 
-    \bar{u}_{j,a}(\vec{p}) (\gamma^1+ {\rm i} \gamma^2)(1-\gamma^5) u_{k,c}(\vec{p}\,') \\
-&\; \qquad +(1-\bar{N}_{k,c}(p'^0))\, \bar{N}_{j,a}(p^0)\bar{v}_{j,a}(\vec{p}) (\gamma^1- {\rm i} \gamma^2)(1-\gamma^5) v_{k,c}(\vec{p}\,') \bar{v}_{k,c}(\vec{p}\,') (\gamma^1+ {\rm i} \gamma^2)(1-\gamma^5) v_{j,a}(\vec{p})  \Bigg]\,,
-    \label{eq:rate1heuristic}
-    \end{aligned}
+ q_\pm^2
+ &=E^2+E_\pm'^2-2EE_\pm'\mu\\
+ &=\omega_0^2+2EE_\pm'(1-\mu).
+\end{aligned}
+\label{eq:qrel}
 \end{equation}
-where we have defined the phase space measure ${\rm d} \tilde{p} \equiv {\rm d}^3\vec{p}/((2 \pi)^3 2 p^0)$.  Ignoring the relative motion between the spin and the C$\nu$B, and assuming the neutrino occupation numbers to be independent of helicity, the expression simplifies to 
+For \(F_\pm=1\), Eq.~\eqref{eq:ensemblepencil} reduces to
+Eq.~\eqref{eq:singlepencil}.
+
+\section{Relativistic coherence limits}
+\label{sec:coherence}
+
+In the exactly forward direction,
+\begin{equation}
+ q_{\pm,\min}=\omega_0,
+\label{eq:qmin}
+\end{equation}
+instead of the nonrelativistic result
+\(q_{\min}\sim m_\nu\omega_0/p_\nu\).  At small scattering angle
+\(\theta\),
+\begin{equation}
+ q_\pm^2\simeq\omega_0^2+EE_\pm'\theta^2.
+\label{eq:qsmall}
+\end{equation}
+The forward collective region therefore requires
+\begin{equation}
+ \omega_0R\ll1,
+\qquad
+ \theta\lesssim\frac{1}{ER}.
+\label{eq:cohconditions}
+\end{equation}
+For \(R=1\) cm, \(\omega_0=10^{-8}\) eV gives
+\(\omega_0R=5.07\times10^{-4}\), so longitudinal coherence is possible.
+Using the root-mean-square energy of the supplied spectrum,
+\begin{equation}
+ ER=9.54\times10^{10},
+\qquad
+ \theta_{\rm coh}\simeq1.05\times10^{-11}.
+\end{equation}
+Thus the whole solid angle is never coherent for a centimetre-scale
+reactor target; only a very narrow forward cone contributes to the
+\(N^2\) term.
+
+For \(ER\gg1\), \(\omega_0R\ll1\), and a spherical sample, the angular
+integral can be done asymptotically:
 \begin{equation}
 \begin{aligned}
-\gamma_{+}= & \;8  \, G_F^2 \pi \sum_{jk} g_A^{j,k} g_A^{k,j} 
-    \int {\rm d} \tilde{p} \int {\rm d} \tilde{p}' \; \delta^{(1)}(\omega_0+p'^0-p^0) \, p^0 p'^0\, \left[(1-N_{k}(p'^0)) \, N_{j}(p^0)  +(1-\bar{N}_{k}(p'^0))\, \bar{N}_{j}(p^0)\right]\,,
-    \end{aligned}
+ \int\dd\Omega_{\hat p'}
+ \left[\frac{3j_1(qR)}{qR}\right]^2
+ &\simeq\frac{18\pi}{E^2R^2}
+ \int_0^\infty\frac{\dd x}{x}j_1^2(x)\\
+ &=\frac{9\pi}{2E^2R^2},
+\end{aligned}
+\label{eq:Wangular}
 \end{equation}
-which, using the Dirac delta, can be further reduced to 
+where
+\(\int_0^\infty\dd x\,j_1^2(x)/x=1/4\).
+Inside this cone \(\hat p'\simeq\hat p\), so both circular-current kernels
+approach \(1-c^2\).  The leading collective cross sections are consequently
 \begin{equation}
-    \gamma_{+}= \frac{4G_F^2}{(2 \pi)^3} \sum_{jk} g_A^{j,k} g_A^{k,j}  
-    \int_{\sqrt{(\omega_0+m_k)^2-m_j^2}}^\infty  {\rm d} |\vec{p}|\;|\vec{p}|^2\, p_{k+}\, \sqrt{m_k^2+p^2_{k+}} \,  
-    \left[(1-N_{k}(p^0_{k+})) \, N_{j}(p^0)  +(1-\bar{N}_{k}(p^0_{k+}))\, \bar{N}_{j}(p^0)\right]\,,
-    \label{eq:gamma+heuristic}
+\boxed{
+ \sigma_{{\rm coh},+}
+ \simeq\sigma_{{\rm coh},-}
+ \simeq
+ \frac{9G_F^2g_A^2N^2}{16\pi R^2}(1-c^2).}
+\label{eq:sigmacoherent}
 \end{equation}
-with $p_{k+}=[(\sqrt{|\vec{p}|^2+m_j^2}-\omega_0)^2-m_k^2]^{1/2}$, and  $p^0_{k+}=\sqrt{m_k^2+p^2_{k+}}$.
+Here \(R\) is expressed in natural units.  The leading result is independent
+of \(E\): the elementary \(E^2\) scaling is cancelled by the
+\((ER)^{-2}\) forward-cone fraction.
 
-
-Computation of the de-excitation rate from inelastic neutrino-spin scattering proceeds in a similar fashion, and yields
+The incoherent terms for the transverse product state are
+\begin{equation}
+ \sigma_{{\rm inc},\pm}
+ \simeq
+ \frac{NG_F^2g_A^2}{\pi}E^2(1\pm c).
+\label{eq:sigmaincoherent}
+\end{equation}
+For \(c=0\), their spectrum-integrated ratio is
+\begin{equation}
+ \frac{\Gamma_{\rm coh}}{\Gamma_{\rm inc}}
+ \simeq\frac{9N}{16R^2}\frac{M_0}{M_2}.
+\label{eq:cohratio}
+\end{equation}
+As a plane-wave benchmark, a sphere with \(R=1\) cm and spin density
+\(n_s=3\times10^{22}\ {\rm cm}^{-3}\) contains
+\(N=1.25664\times10^{23}\) spins.  Equations~\eqref{eq:sigmacoherent}
+and~\eqref{eq:cohratio} give
 \begin{equation}
 \begin{aligned}
-\gamma_{-}= & \; G_F^2\pi \sum_{jk} g_A^{j,k} g_A^{k,j} \sum_{ac}  
-    \int {\rm d} \tilde{p} \int {\rm d} \tilde{p}' \; \delta^{(1)}(\omega_0+p^0-p'^0) \\
-  &\; \times \Bigg[(1-N_{k,c}(p'^0)) \, N_{j,a}(p^0)\, \bar{u}_{k,c}(\vec{p}\,') (\gamma^1+ {\rm i} \gamma^2)(1-\gamma^5) u_{j,a}(\vec{p}) 
-    \bar{u}_{j,a}(\vec{p}) (\gamma^1- {\rm i} \gamma^2)(1-\gamma^5) u_{k,c}(\vec{p}\,') \\
-&\; \qquad +(1-\bar{N}_{k,c}(p'^0))\, \bar{N}_{j,a}(p^0)\bar{v}_{j,a}(\vec{p}) (\gamma^1+ {\rm i} \gamma^2)(1-\gamma^5) v_{k,c}(\vec{p}\,') \bar{v}_{k,c}(\vec{p}\,') (\gamma^1- {\rm i} \gamma^2)(1-\gamma^5) v_{j,a}(\vec{p})  \Bigg]\,.
-    \label{eq:rate2heuristic}
-    \end{aligned}
-\end{equation}
-Again, ignoring any neutrino-spin relative motion and assuming  helicity-independent neutrino occupation numbers, we find
-\begin{equation}
-\begin{aligned}
-\gamma_{-}= & \;8  \, G_F^2 \pi \sum_{jk} g_A^{j,k} g_A^{k,j} \sum_{ac}  
-    \int {\rm d} \tilde{p} \int {\rm d} \tilde{p}' \; \delta^{(1)}(\omega_0+p^0-p'^0) \, p^0 p'^0\, \left[(1-N_{k}(p'^0)) \, N_{j}(p^0)  +(1-\bar{N}_{k}(p'^0))\, \bar{N}_{j}(p^0)\right] \\
-    =&\;  \frac{4G_F^2}{(2 \pi)^3} \sum_{jk} g_A^{j,k} g_A^{k,j}  
-    \int_{\sqrt{(\omega_0-m_k)^2-m_j^2}}^\infty  {\rm d} |\vec{p}| \;|\vec{p}|^2\, p_{k-}\, \sqrt{m_k^2+p^2_{k-}} \,  
-    \left[(1-N_{k}(p^0_{k-})) \, N_{j}(p^0)  +(1-\bar{N}_{k}(p^0_{k-}))\, \bar{N}_{j}(p^0)\right]\,,
-    \label{eq:gamma-heuristic}
-    \end{aligned}
-\end{equation}
-with  $p_{k-}=[(\sqrt{|\vec{p}|^2+m_j^2}+\omega_0)^2-m_k^2]^{1/2}$, and $p^0_{k-}=\sqrt{m_k^2+p^2_{k-}}$.    The lower integration holds if it evaluates to a real number.  Otherwise, it needs to be set to zero. 
-
-
-Suppose for simplicity $m_j = m_k=m$ and $\omega_0 \ll m$.  The lower integration limits of the $\gamma_+$ and $\gamma_-$ integrals, Eqs.~\eqref{eq:gamma+heuristic} and~\eqref{eq:gamma-heuristic}, are $\sqrt{(\omega_0+m)^2-m^2} \approx \sqrt{2 m\omega_0}$ and zero, respectively.  We can take the former to zero too if $\omega_0 \ll |\vec{p}|^2/(2 m) \ll m$ is satisfied by the bulk of the neutrino distribution.  The same condition also allows us to approximate $p_{k\pm} \approx \sqrt{ |\vec{p}|^2\mp 2m \omega_0}\approx|\vec{p}| \mp m\omega_0/|\vec{p}|$. Then, to leading order, we find 
-\begin{equation}
-\begin{aligned}
-\gamma_+ \approx \gamma_- & \propto \int_0^\infty {\rm d}|\vec{p}|\; |\vec{p}|^2 \; p_{k+}\sqrt{m^2+p^2_{k+}}  \left[N(p^0) + \bar{N}(p^0)\right] \\
-& \approx \int_0^\infty {\rm d}|\vec{p}|\; |\vec{p}|^2\;  m \, |\vec{p}|  \left[N(p^0) + \bar{N}(p^0)\right] \, ,
+ \sigma_{{\rm coh},\pm}
+ &=1.4580\times10^{-20}\ {\rm cm}^2,\\
+ \Gamma_{{\rm coh},\pm}
+ &=2.1750\times10^{-7}\ {\rm s}^{-1},\\
+ \frac{\Gamma_{\rm coh}}{\Gamma_{\rm inc}}
+ &=7.7646
 \end{aligned}
 \end{equation}
-and
-\begin{equation}
-\begin{aligned}
-\gamma_{\rm net} \equiv \gamma_--\gamma_+&  \propto \int^\infty_0 {\rm d}|\vec{p}| \; |\vec{p}|^2\; \left[p_{k-}\, \sqrt{m^2+p^2_{k-}}- p_{k+}\, \sqrt{m^2+p^2_{k+}}
-\right] \left[N(p^0) + \bar{N}(p^0)\right] \\
-& \approx   \int^\infty_0 {\rm d}|\vec{p}| \; |\vec{p}|^2\; \frac{2 m^2 \omega_0}{|\vec{p}|} \; \left[N(p^0) + \bar{N}(p^0)\right] \, ,
-\end{aligned}
-\end{equation}
-where we have omitted for brevity the Pauli-blocking terms in both expressions.  Thus, we see immediately that $\gamma_{+}< \gamma_-$, and $\gamma_{\rm net}$ is suppressed by a factor $\sim 2 m \omega_0/|\vec{p}|^2$ relative to $\gamma_\pm$.
+for the illustrative \(1\)-GW, \(10\)-m, transverse-beam normalisation of
+Sec.~\ref{sec:numeric}.  These are ensemble transition rates, not
+single-spin rates.
 
-%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%
+Two qualifications are important.
+\begin{enumerate}
+  \item When \(c=\pm1\), the leading forward kernel \(1-c^2\) vanishes.
+  One of the two rates vanishes identically in the massless limit, while
+  the other receives only a subleading contribution from nonzero
+  scattering angles.  Equation~\eqref{eq:sigmacoherent} must not be used
+  to form a \(0/0\) ratio in this aligned geometry.
+  \item The \(N^2\) benchmark assumes that the incident neutrino state is
+  sufficiently coherent across the sample for the plane-wave phase in
+  Eq.~\eqref{eq:Fgeneral} to apply.  A real reactor has a finite core,
+  finite source distance, and neutrino wave packets.  If those effects
+  limit the mutual coherence length below \(R\), Eq.~\eqref{eq:sphereF}
+  must be replaced by the corresponding two-point source correlation
+  function.  The single-spin result and the incoherent \(N/2\) term are
+  unaffected.  The numerical \(N^2\) result above should therefore be
+  read as the plane-wave upper benchmark, not yet as a realistic reactor
+  prediction.
+\end{enumerate}
 
-\subsection{\texorpdfstring{$N$}{N} spins}
+\section{Reproducibility}
 
-Consider now a system of $N$ spins described by the interaction Hamiltonian~\eqref{eq:nham}.  We are interested in the excitation and de-excitation rates of the whole spin ensemble, which can be defined via
-\begin{equation}
-\Gamma_\pm = \sum_{{\rm f}_{\rm spin}}|T_{\rm fi}^{\pm}|^2
-2 \pi \delta^{(1)}(E_{\rm f}-E_{\rm i})\, \rho_\pm (E_{\rm f})\, ,
-\label{eq:Gammapm}
-\end{equation}
-where 
-\begin{equation}
-\begin{aligned}
-T^{\pm}_{\rm fi} = &\; \sum_\alpha \langle {\rm f}_{\rm spin} |  J_\pm^\alpha |{\rm i}_{\rm spin}\rangle \langle {\rm f}_\nu | \Sigma_\pm^\alpha | {\rm i}_\nu \rangle
-\end{aligned}
-\end{equation}
-are the excitation and de-excitation amplitudes of the $N$-spin ensemble from an initial state $|{\rm i}_{\rm spin} \rangle$ to an unspecified final state $|{\rm f}_{\rm spin} \rangle$. The summation over ${\rm f}_{\rm spin}$ encompasses a complete basis of  final states; the ladder operators will project out the final states that have one unit of energy $\omega_0$ more ($+$) or less ($-$) than the initial state.  
-
-
-Again, focussing first on spin excitation due to inelastic scattering of a plane-wave neutrino from $\nu_j(t,\vec{x}_\alpha) = u_{j,a}(\vec{p})  e^{-{\rm i} (p^0t-\vec{p}\cdot\vec{x}_\alpha)}$ to $\nu_k(t,\vec{x}_\beta) = u_{k,c}(\vec{p}\,')  e^{-{\rm i} (p'^0t-\vec{p}\,'\cdot\vec{x}_\beta)}$, we find
-\begin{equation}
-\begin{aligned}
- |T^{+}_{\rm fi} |^2 = &\;  \sum_{\alpha \beta} \langle {\rm f}_{\rm spin}|  J_+^\alpha |{\rm i}_{\rm spin}\rangle
- \langle {\rm i}_{\rm spin}|  J_-^\beta |{\rm f}_{\rm spin} \rangle \\
- &\qquad \times \frac{G_F^2}{2} g_A^{j,k} g_A^{k,j}  \frac{1}{2p^{0}2p'^{0}} \left| \bar{u}_{k,c}(\vec{p}\,') (\gamma^1 - {\rm i} \gamma^2)(1- \gamma^5) u_{j,a}(\vec{p})\right|^2\, e^{-{\rm i}(\vec{p}\,' -\vec{p})\cdot(\vec{x}_\alpha-\vec{x}_\beta)} \, .
-    \end{aligned}
-    \end{equation}
-A similar expression can be found for $|T^{-}_{\rm fi}|^2$.
-Then, following the same procedure as for a single spin, it is straightforward to arrive at the collective excitation and  de-excitation rates
-\begin{equation}
-\begin{aligned}
-\Gamma_{+}
-    =&\;\frac{2G_F^2}{(2 \pi)^3} \sum_{jk} g_A^{j,k} g_A^{k,j}  
-    \int_{\sqrt{(\omega_0+m_k)^2-m_j^2}}^\infty  {\rm d} |\vec{p}| \; |\vec{p}|^2\, p_{k+}\, \sqrt{m_k^2+p^2_{k+}} \,  
-    \left[(1-N_{k}(p^0_{k+})) \, N_{j}(p^0)  +(1-\bar{N}_{k}(p^0_{k+}))\, \bar{N}_{j}(p^0)\right]\\
-    &\; \hspace{30mm} \times\int_{-1}^1 {\rm d} \mu \; F_+(\vec{p}_{k+}-\vec{p})\, , \\
-\Gamma_{-}= &\;\frac{2G_F^2}{(2 \pi)^3} \sum_{jk} g_A^{j,k} g_A^{k,j}  
-    \int_{\sqrt{(\omega_0-m_k)^2-m_j^2}}^\infty  {\rm d} |\vec{p}|\; |\vec{p}|^2\, p_{k-}\, \sqrt{m_k^2+p^2_{k-}} \,  
-    \left[(1-N_{k}(p^0_{k-})) \, N_{j}(p^0)  +(1-\bar{N}_{k}(p^0_{k-}))\, \bar{N}_{j}(p^0)\right]\\
-    &\; \hspace{30mm} \times\int_{-1}^1 {\rm d} \mu \; F_-(\vec{p}_{k-}-\vec{p})\, ,
-    \label{eq:BigGamma}
-    \end{aligned}
-\end{equation}
-where $\mu \equiv \hat{p}' \cdot \hat{p}=\cos\theta_{\vec{p}\vec{p}\,'}$, with $\theta_{\vec{p}\vec{p}\,'}$ the angle between the incoming and outgoing momenta, and
-\begin{equation}
-F_\pm(\vec{p}\,'-\vec{p}) \equiv \sum_{\rm f_{spin}}\Big|\langle {\rm f}_{\rm spin}| \sum_\alpha  J_\pm^\alpha e^{-{\rm i} (\vec{p}\,' - \vec{p}) \cdot\vec{x}_\alpha}|{\rm i}_{\rm spin}\rangle \Big|^2
-\label{eq:formfactors}
-\end{equation}
-are form factors that depend on the initial state of the whole $N$ spin ensemble.
- Since the operator $ \sum_\alpha  J_\pm^\alpha$ already projects the initial state into the subspace of final states that has the correct energy requirements,  we can use the completeness relation of all possible final states $\sum_{\rm f'_{spin}}|{\rm f'}_{\rm spin}\rangle\langle {\rm f'}_{\rm spin}|=1$ to simplify the form factors to
-\begin{equation}
- F_\pm(\vec{p}\,'-\vec{p}) = \langle {\rm i}_{\rm spin}| \sum_\beta  J_\mp^\beta e^{+{\rm i} (\vec{p}\,' - \vec{p})\cdot \vec{x}_\beta} \sum_\alpha  J_\pm^\alpha e^{-{\rm i} (\vec{p}\,' - \vec{p}) \cdot \vec{x}_\alpha}|{\rm i}_{\rm spin}\rangle \,,
-\label{eq:formfactorsAA}
-\end{equation}
-where it is understood that $F_\pm(\vec{p}\,'-\vec{p})$ are to be evaluated for $\vec{p}\,'=\vec{p}_{k+}$ or $\vec{p}\,'=\vec{p}_{k-}$.
-
-
-Suppose the spin ensemble is initially in the ground state, i.e., $|{\rm i}_{\rm spin} \rangle = |\downarrow_1,\downarrow_2,\cdots,\downarrow_\gamma, \cdots, \downarrow_N \rangle$.   We see immediately that the de-excitation form factor must always yield $F^G (\vec{p}\,'-\vec{p})=0$, while the excitation form factor evaluates to
-\begin{equation}
- F^G_+(\vec{p}\,'-\vec{p}) = \langle\downarrow_1,\downarrow_2, \cdots, \downarrow_N | \sum_\beta  J_-^\beta e^{+{\rm i} (\vec{p}\,' - \vec{p})\cdot \vec{x}_\beta} \sum_\alpha  J_+^\alpha e^{-{\rm i} (\vec{p}\,' - \vec{p})\cdot \vec{x}_\alpha}|\downarrow_1,\downarrow_2, \cdots, \downarrow_N \rangle=N\, ,
-\end{equation}
-irrespective of the momentum transfer. Thus, in this case there is no coherent effect from the neutrino-spin interaction.  If, on the other hand, the spin ensemble is initially in the product state $|{\rm i}_{\rm spin} \rangle = |\rightarrow_1, \rightarrow_2, \cdots, \rightarrow_\gamma, \cdots, \rightarrow_N \rangle$, where $|\rightarrow \rangle \equiv (|\uparrow \rangle + |\downarrow \rangle)/\sqrt{2}$, then the excitation and de-excitation form factors evaluate to
-\begin{equation}
-\begin{aligned}
- F^P_\pm(\vec{p}\,'-\vec{p}) & = \langle \rightarrow_1,\rightarrow_2, \cdots, \rightarrow_N | \sum_\beta  J_\mp^\beta e^{+{\rm i} (\vec{p}\,' - \vec{p})\cdot \vec{x}_\beta} \sum_\alpha  J_\pm^\alpha e^{-{\rm i} (\vec{p}\,' - \vec{p})\cdot \vec{x}_\alpha} |\rightarrow_1,\rightarrow_2, \cdots, \rightarrow_N \rangle\\
- & =\frac{N}{2}+\frac{1}{4}\sum_{\alpha, \beta \neq \alpha} e^{-{\rm i} (\vec{p}\,' - \vec{p})\cdot (\vec{x}_{\alpha}-\vec{x}_\beta)}\, ,
-\end{aligned}
-\end{equation}
-which features possible coherent effects in the second term.  When the spatial separation between spins $|\vec{x}_{\alpha}-\vec{x}_\beta|$ is much smaller than $V^{1/3}$, where $V$ is the volume of the sample, we can take the continuum limit and, for a constant spin density $n_s=N/V$, approximate the last expression as
-\begin{equation}
-\begin{aligned}
-F^P_\pm(\vec{p}\,'-\vec{p}) &= \frac{N}{2} +\frac{N^2}{4 V^2} \left| \int {\rm d}^3 x \; e^{{\rm i}(\vec{p}\,'-\vec{p})\cdot\vec{x}} \right|^2 \\
-&= \frac{N}{2} + \frac{N^2}{4} \frac{9}{|\vec{p}\,'-\vec{p}|^2 R^2} \left|j_1\left(|\vec{p}\,'-\vec{p}| R\right) \right|^2\, ,
-\label{eq:formP}
-\end{aligned}
-\end{equation}
-where $j_1(x)$ is the spherical Bessel function of order one, and we have assumed at the second equality the spin sample to be a sphere of radius $R$.  Clearly, the second, $N^2$ term dominates if $|\vec{p}-\vec{p}\,'|R\ll1$,  with $|j_1(x)|^2/x^2 \to 1/9$ as $x \to 0$.
-In this limit, the system exhibits coherent behaviours. 
-
-Given the typical momentum of the neutrino bath $\vec{p}_\nu$, in order for the coherence condition to hold over the whole length $R$ of the spin sample, we must demand $|\vec{p}_\nu-\vec{p}\,'(\vec{p}_\nu)|R\ll1$. Assuming for simplicity $m_i=m_j=m$, the typical momentum transfers during excitation and de-excitation are 
-\begin{equation}
-    |\vec{p}_\nu-\vec{p}\,'(\vec{p}_\nu)|^2_\pm=p_\nu^2+(\sqrt{p_\nu^2+m^2}\mp\omega_0)^2-m^2-2p_\nu\left[(\sqrt{p_\nu^2+m^2}\mp\omega_0)^2-m^2\right]^{1/2}\cos{\theta_{\vec{p}\vec{p}\,'}}\,,
-    \label{eq:co}
-\end{equation}
-with $p_{\nu} \equiv|\vec{p}_{\nu}|$.
- If we want coherence over the whole object, we must demand that $|\vec{p}_\nu-\vec{p}\,'(\vec{p}_\nu)|^2 \ll 1/R^2$ even for $\cos \theta_{\vec{p}\vec{p}\,'} = -1$.  
-For non-relativistic neutrinos, where $\sqrt{p_\nu^2+m^2} \approx m + p_\nu^2/(2 m)$, 
-this yields the condition
-\begin{equation}
-    p_\nu^2+(m+\epsilon_\pm)^2-m^2+2p_\nu\sqrt{(m+\epsilon_\pm)^2-m^2}\ll1/R^2\,,
-\end{equation}
-or, equivalently,
-\begin{equation}
-    p_\nu+\sqrt{(m+\epsilon_\pm)^2-m^2}\ll1/R\,,
-    \label{eq:co2}
-\end{equation}
-with $\epsilon_\pm \equiv p_\nu^2/(2m) \mp \omega_0$.  This in turn leads to
-\begin{equation}
-    p_\nu \left[1+ \sqrt{1\mp \omega_0 \frac{2 m}{p_\nu^2}} \right]\ll1/R\,,
-    \label{eq:co3}
-\end{equation}
-when expanded to linear order in $\epsilon_\pm$.
-
-From Eq.~\eqref{eq:co3}, we see that excitation can only happen if $\omega_0< p_\nu^2/(2m)$.  But, if excitation happens at all, the coherence condition is also automatically fulfilled for any incoming momentum satisfying $p_\nu R\ll 1$. 
-On the other hand, while de-excitation has no kinematic threshold, coherence also does not come for free. Rather, in order to have coherent de-excitation, the condition  $\omega_0\ll p_\nu^2/(2m)$ must be satisfied if $p_\nu R \ll 1$.  Physically, this means that the energy splitting must be much smaller than the incoming neutrino kinetic energy. If this is not the case, the momentum transfer of the neutrino is large and coherence is lost.    For a typical C$\nu$B momentum of $p_\nu \sim 5.3 \times 10^{-4}~{\rm eV} \sim 27~{\rm cm}^{-1}$ and a neutrino mass of $m=0.05$~eV, this condition amounts to demanding that $\omega_0 \ll 3 \times 10^{-6}$~eV. 
-
-For typical spin samples of size $R \sim 1$~cm, the condition $p_\nu R \ll 1$ cannot be realised by the C$\nu$B across the whole sample volume. However, even in the case of $p_\nu R \gg1$, coherence is still possible under limited conditions.  Specifically, assuming $\omega_0\ll p_\nu^2/(2m)$, Eq.~\eqref{eq:co} evaluates to 
-\begin{equation}
-    |\vec{p}_\nu-\vec{p}\,'(\vec{p}_\nu)|^2\approx4p_\nu^2\sin^2{\frac{\theta_{\vec{p}\vec{p}\,'}}{2}}\,.
-\end{equation}
-Demanding $|\vec{p}_\nu-\vec{p}\,'(\vec{p}_\nu)|^2R^2 \ll 1$, we see that 
- coherence can be achieved even in the case $p_\nu R \gg 1$ for small angles $\theta_{\vec{p}\vec{p}\,'}\ll1/(p_\nu R)$ between the incoming and outgoing neutrino momenta. Under this condition, we can approximate the coherent part of the form factors as
-\begin{equation}
-\int_{-1}^1 {\rm d} \mu\; F_\pm^P(\vec{p}\,'-\vec{p}) \approx \frac{N^2}{4} \int_0^{(p_\nu R)^{-1}} {\rm d} \theta_{\vec{p}\vec{p}\,'}\, \sin\theta_{\vec{p}\vec{p}\,'} \approx \frac{N^2}{4} \frac{1}{2(p_\nu R)^{2}} \, .
-\end{equation}
-In other words, the collective excitation and de-excitation rates $\Gamma_\pm$ in the $p_\nu R \gg 1$ regime are suppressed by a factor $(2 p_\nu R)^{-2}$ relative to the fully coherent rates.  Evaluating Eq.~\eqref{eq:co} for the momentum transfer squared $q^2 \equiv|\vec{p}_\nu-\vec{p}\,'(\vec{p}_\nu)|^2$ in the forward direction (i.e., $\cos{\theta_{\vec{p}\vec{p}\,'}} = 1$) and expanding in $\epsilon_\pm$ as above, it is straightforward to show that the momentum transfer in this regime is $q \sim \omega_0 m/p_\nu$. 
-
-
+The numerical sources are stored alongside this document:
+\begin{itemize}
+  \item \texttt{check\_spinor\_traces.py} constructs explicit Dirac gamma
+  matrices and verifies Eq.~\eqref{eq:spinortraces} for \(10^4\) random
+  direction pairs.
+  \item \texttt{reactor\_rates.py} integrates
+  \texttt{../235U\_nspec.csv}, evaluates the flux moments, single-spin
+  rates, coherence angle, and the plane-wave ensemble benchmark.  Its
+  power, distance, \(Q_f\), \(g_A\), \(\omega_0\), beam angle, radius, and
+  spin density are command-line options.
+\end{itemize}
 
 \end{document}

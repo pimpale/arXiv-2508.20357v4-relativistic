@@ -19,6 +19,7 @@ G_F_GEV_MINUS_2 = 1.1663787e-5
 GEV_MINUS_2_TO_CM2 = 0.3893793721e-27
 MEV_TO_JOULE = 1.602176634e-13
 HBAR_C_MEV_CM = 1.973269804e-11
+HBAR_C_GEV_CM = HBAR_C_MEV_CM * 1.0e-3
 
 
 def load_bins(path: Path) -> list[tuple[float, float, float]]:
@@ -93,6 +94,7 @@ def main() -> None:
     parser.add_argument("--distance-m", type=float, default=10.0)
     parser.add_argument("--energy-per-fission-mev", type=float, default=202.36)
     parser.add_argument("--sample-radius-cm", type=float, default=1.0)
+    parser.add_argument("--spin-density-cm3", type=float, default=3.0e22)
     args = parser.parse_args()
 
     if not -1.0 <= args.cos_alpha <= 1.0:
@@ -132,6 +134,26 @@ def main() -> None:
     er_rms = (
         rms_energy * args.sample_radius_cm / HBAR_C_MEV_CM
     )
+    number_of_spins = (
+        4.0
+        * math.pi
+        / 3.0
+        * args.sample_radius_cm**3
+        * args.spin_density_cm3
+    )
+    radius_gev_inverse = args.sample_radius_cm / HBAR_C_GEV_CM
+    coherent_cross_section = (
+        9.0
+        * G_F_GEV_MINUS_2**2
+        * args.g_a**2
+        * number_of_spins**2
+        * (1.0 - args.cos_alpha**2)
+        / (16.0 * math.pi * radius_gev_inverse**2)
+        * GEV_MINUS_2_TO_CM2
+    )
+    coherent_rate = integrated_flux * coherent_cross_section
+    incoherent_excitation_rate = number_of_spins / 2.0 * excitation_rate
+    incoherent_deexcitation_rate = number_of_spins / 2.0 * deexcitation_rate
 
     print(f"Spectrum: {args.spectrum}")
     print(f"Bins: {len(bins)}")
@@ -174,6 +196,28 @@ def main() -> None:
         f"At E_rms and R={args.sample_radius_cm:g} cm: E R = {er_rms:.8e}, "
         f"theta_coh ~ {1.0 / er_rms:.8e} rad"
     )
+    print(f"Number of spins in sphere   = {number_of_spins:.8e}")
+    print(
+        "Leading coherent sigma_+,- = "
+        f"{coherent_cross_section:.8e} cm^2 per ensemble"
+    )
+    print(f"Leading coherent Gamma_+,- = {coherent_rate:.8e} s^-1")
+    print(
+        f"Incoherent transverse Gamma_+ = {incoherent_excitation_rate:.8e} s^-1"
+    )
+    print(
+        f"Incoherent transverse Gamma_- = {incoherent_deexcitation_rate:.8e} s^-1"
+    )
+    if incoherent_excitation_rate > 0.0:
+        print(
+            "Coherent/incoherent Gamma_+ = "
+            f"{coherent_rate / incoherent_excitation_rate:.8g}"
+        )
+    if incoherent_deexcitation_rate > 0.0:
+        print(
+            "Coherent/incoherent Gamma_- = "
+            f"{coherent_rate / incoherent_deexcitation_rate:.8g}"
+        )
 
 
 if __name__ == "__main__":
